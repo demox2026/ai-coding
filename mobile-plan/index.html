@@ -1,0 +1,153 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>轻计划 · 青岛行追踪</title>
+    <link rel="stylesheet" href="./style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  </head>
+  <body>
+    <main class="page">
+      <section class="hero">
+        <div class="avatar">牛</div>
+        <div class="intro">
+          <h1>嗨，小牛 👋</h1>
+          <p>28岁 · 男 · 字节跳动程序员 · 北京中关村</p>
+          <p>爱好：摄影 · 美食 · 旅行</p>
+        </div>
+      </section>
+
+      <section class="card">
+        <div class="card-hd">
+          <div class="badge">轻计划</div>
+          <h2>要关注“去青岛”的优惠与活动吗？</h2>
+          <p class="sub">可追踪机票、火车、酒店、演唱会、城市活动等动态</p>
+        </div>
+        <div class="card-ft">
+          <button id="openSheetBtn" class="btn-primary">好的</button>
+        </div>
+      </section>
+
+      <section class="debug" id="resultBox" hidden>
+        <h3>已创建追踪</h3>
+        <pre id="resultJson"></pre>
+      </section>
+    </main>
+
+    <!-- ActionSheet -->
+    <div class="sheet-mask" id="sheetMask" role="presentation" aria-hidden="true"></div>
+    <div class="sheet" id="actionSheet" role="dialog" aria-modal="true" aria-labelledby="sheetTitle">
+      <header class="sheet-hd">
+        <div class="drag-handle" aria-hidden="true"></div>
+        <h3 id="sheetTitle">选择追踪内容</h3>
+        <p class="muted">北京 ⇀ 青岛 · 选择你要关注的项目并设置参数</p>
+      </header>
+
+      <div class="sheet-body">
+        <form id="trackerForm">
+          <fieldset class="group">
+            <legend>追踪类型</legend>
+
+            <label class="item switch">
+              <input type="checkbox" name="check_flight" />
+              <span class="switch-ui"></span>
+              <span class="label-main">机票特价</span>
+            </label>
+            <div class="panel" data-panel="flight" hidden>
+              <div class="row">
+                <label>出发城市</label>
+                <input type="text" name="flight.departure_city" />
+              </div>
+              <div class="row">
+                <label>到达城市</label>
+                <input type="text" name="flight.destination_city" />
+              </div>
+              <div class="row">
+                <label>价格上限(¥)</label>
+                <input type="number" min="0" inputmode="numeric" name="flight.price_limit" />
+              </div>
+            </div>
+
+            <label class="item switch">
+              <input type="checkbox" name="check_train" />
+              <span class="switch-ui"></span>
+              <span class="label-main">火车特价</span>
+            </label>
+            <div class="panel" data-panel="train" hidden>
+              <div class="row">
+                <label>价格上限(¥)</label>
+                <input type="number" min="0" inputmode="numeric" name="train.price_limit" />
+              </div>
+            </div>
+
+            <label class="item switch">
+              <input type="checkbox" name="check_hotel" />
+              <span class="switch-ui"></span>
+              <span class="label-main">酒店优惠</span>
+            </label>
+            <div class="panel" data-panel="hotel" hidden>
+              <div class="row">
+                <label>价格上限(¥)</label>
+                <input type="number" min="0" inputmode="numeric" name="hotel.price_limit" />
+              </div>
+              <div class="row">
+                <label>偏好品牌</label>
+                <input type="text" name="hotel.brand" />
+              </div>
+            </div>
+
+            <label class="item switch">
+              <input type="checkbox" name="check_concert" />
+              <span class="switch-ui"></span>
+              <span class="label-main">演唱会</span>
+            </label>
+            <div class="panel" data-panel="concert" hidden>
+              <div class="row">
+                <label>歌手</label>
+                <input type="text" name="concert.singer_name" />
+              </div>
+            </div>
+
+            <label class="item switch">
+              <input type="checkbox" name="check_city_event" />
+              <span class="switch-ui"></span>
+              <span class="label-main">青岛城市活动</span>
+            </label>
+            <div class="panel" data-panel="city_event" hidden>
+              <div class="row">
+                <label>城市</label>
+                <input type="text" name="city_event.city" />
+              </div>
+            </div>
+          </fieldset>
+
+          <fieldset class="group">
+            <legend>提醒频率</legend>
+            <div class="seg">
+              <label class="seg-item">
+                <input type="radio" name="reminder_schedule" value="DAILY" />
+                <span>每天</span>
+              </label>
+              <label class="seg-item">
+                <input type="radio" name="reminder_schedule" value="WEEKEND" />
+                <span>周末</span>
+              </label>
+            </div>
+          </fieldset>
+        </form>
+      </div>
+
+      <footer class="sheet-ft">
+        <button class="btn-ghost" id="cancelBtn">取消</button>
+        <button class="btn-primary" id="confirmBtn">确定创建</button>
+      </footer>
+    </div>
+
+    <div id="toast" class="toast" role="status" aria-live="polite" aria-atomic="true"></div>
+
+    <script type="module" src="./app.js"></script>
+  </body>
+</html>
