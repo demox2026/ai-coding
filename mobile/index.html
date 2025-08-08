@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>轻计划 · 追踪任务</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div id="app">
+      <header class="app-header">
+        <h1>轻计划</h1>
+      </header>
+
+      <main class="container">
+        <section class="profile-card">
+          <div class="profile-row">
+            <div class="avatar">牛</div>
+            <div class="info">
+              <div class="name">小牛，28岁</div>
+              <div class="meta">北京 · 字节跳动 · 程序员</div>
+              <div class="hobby">摄影 / 美食 / 旅行</div>
+            </div>
+          </div>
+          <div class="summary">轻计划建议：关注青岛的机票、火车、酒店、演唱会与城市活动特价。</div>
+          <div class="actions">
+            <button id="openSheetBtn" class="btn-primary">配置并创建追踪</button>
+          </div>
+        </section>
+
+        <section class="basic-plan">
+          <div class="plan-row">
+            <span>出发地</span>
+            <strong id="departureCity">北京</strong>
+          </div>
+          <div class="plan-row">
+            <span>目的地</span>
+            <strong id="destinationCity">青岛</strong>
+          </div>
+          <div class="plan-row">
+            <span>提醒频率</span>
+            <strong id="reminderSchedule">周末</strong>
+          </div>
+        </section>
+      </main>
+
+      <div id="sheetMask" class="mask hidden"></div>
+      <div id="actionSheet" class="sheet hidden" role="dialog" aria-modal="true" aria-labelledby="sheetTitle">
+        <div class="sheet-header">
+          <div class="handle" aria-hidden="true"></div>
+          <h2 id="sheetTitle">选择追踪内容</h2>
+          <button id="closeSheetBtn" class="icon-btn" aria-label="关闭">✕</button>
+        </div>
+
+        <div class="sheet-content">
+          <div class="capability-list">
+            <label class="cap-item"><input type="checkbox" id="capFlight" checked /> 机票（≤ ¥800）</label>
+            <div class="cap-params" data-for="capFlight">
+              <label>价格上限（¥）<input type="number" id="flightPrice" min="0" inputmode="numeric" placeholder="800" /></label>
+            </div>
+
+            <label class="cap-item"><input type="checkbox" id="capTrain" checked /> 火车（≤ ¥300）</label>
+            <div class="cap-params" data-for="capTrain">
+              <label>价格上限（¥）<input type="number" id="trainPrice" min="0" inputmode="numeric" placeholder="300" /></label>
+            </div>
+
+            <label class="cap-item"><input type="checkbox" id="capHotel" checked /> 酒店（≤ ¥500 · 希尔顿）</label>
+            <div class="cap-params" data-for="capHotel">
+              <label>价格上限（¥）<input type="number" id="hotelPrice" min="0" inputmode="numeric" placeholder="500" /></label>
+              <label>品牌<input type="text" id="hotelBrand" placeholder="希尔顿" /></label>
+            </div>
+
+            <label class="cap-item"><input type="checkbox" id="capConcert" checked /> 演唱会（歌手：林俊杰）</label>
+            <div class="cap-params" data-for="capConcert">
+              <label>歌手<input type="text" id="concertSinger" placeholder="林俊杰" /></label>
+            </div>
+
+            <label class="cap-item"><input type="checkbox" id="capCityEvent" checked /> 城市活动（青岛）</label>
+            <div class="cap-params" data-for="capCityEvent">
+              <label>城市<input type="text" id="eventCity" placeholder="青岛" /></label>
+            </div>
+          </div>
+        </div>
+
+        <div class="sheet-footer">
+          <button id="resetBtn" class="btn-secondary">重置</button>
+          <button id="confirmBtn" class="btn-primary">确定创建</button>
+        </div>
+      </div>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>
